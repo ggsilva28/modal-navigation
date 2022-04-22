@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 //Services
 import { RouteService } from 'src/app/services/route.service';
 
+import { ModalContentPage } from './../modal-content/modal-content.page';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -18,6 +20,10 @@ export class HomePage implements OnInit {
   }
 
   openModal() {
-    this.route.go('modal-content', { modal: true, open: true })
+    this.route.goModal(ModalContentPage, { title: 'Content Page' })
+  }
+
+  goPage(){
+    this.route.go('/modal-content')
   }
 }

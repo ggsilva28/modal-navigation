@@ -1,1 +1,19 @@
-<ion-router-outlet class="ion-page" name="modal"></ion-router-outlet> 
+<ion-header class="ion-no-border">
+    <ion-toolbar color="tertiary">
+        <ion-buttons slot="start" *ngIf="canGoBack">
+            <ion-button (click)="goBack()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> {{properties?.title}} </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()">
+                <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-nav #modalNavigation></ion-nav>
+</ion-content>

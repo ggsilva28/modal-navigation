@@ -14,12 +14,10 @@ const routes: Routes = [
   {
     path: 'modal-content',
     loadChildren: () => import('./pages/modal-content/modal-content.module').then( m => m.ModalContentPageModule),
-    outlet: 'modal'
   },
   {
     path: 'modal-content2',
     loadChildren: () => import('./pages/modal-content2/modal-content2.module').then( m => m.ModalContent2PageModule),
-    outlet: 'modal'
   },
   {
     path: 'home',
