@@ -1,0 +1,7 @@
+{
+  "name": "modal-navigation",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
