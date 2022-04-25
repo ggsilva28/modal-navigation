@@ -6,6 +6,8 @@ import { ModalComponent } from 'src/app/component/template/modal/modal.component
 
 import { EventsService } from './events.service';
 
+import { AuthGuard } from '../guards/auth.guard';
+
 export interface params {
   modal: boolean,
   open?: boolean,
@@ -21,7 +23,8 @@ export class RouteService {
   constructor(
     private router: Router,
     public modalController: ModalController,
-    public event: EventsService
+    public event: EventsService,
+    public authGuard: AuthGuard
   ) { }
 
   async go(url: any, params: params = { modal: false, open: false }, e: any = null) {
@@ -43,9 +46,12 @@ export class RouteService {
       }
     });
 
-    await modal.present();
-
-    this.event.publish('modal:push', { properties: properties })
+    const login = await this.authGuard.auth()
+    console.log(login)
+    if(login){
+      await modal.present();
+      this.event.publish('modal:push', { properties: properties })
+    }
 
     modal.onDidDismiss().then(() => {
       this.event.publish('modal:destroy')

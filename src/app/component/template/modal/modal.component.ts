@@ -26,7 +26,7 @@ export class ModalComponent implements OnInit {
 
   public rootPage;
   public properties: modalProperties = {
-    title: 'Modal',
+    title: '',
     height: 600
   };
 
