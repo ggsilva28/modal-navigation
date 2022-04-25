@@ -1,10 +1,9 @@
 <ion-content class="ion-padding">
 
-  <ion-card>
-    <ion-item>
+  <ion-card mode="ios" (click)="go()" button="true">
+    <ion-item lines="none">
       <ion-icon name="pin" slot="start"></ion-icon>
       <ion-label>ion-item in a card, icon left, button right</ion-label>
-      <ion-button fill="outline" slot="end">View</ion-button>
     </ion-item>
 
     <ion-card-content>
@@ -13,11 +12,10 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-item>
+  <ion-card mode="ios" (click)="go()" button="true">
+    <ion-item lines="none">
       <ion-icon name="pin" slot="start"></ion-icon>
       <ion-label>ion-item in a card, icon left, button right</ion-label>
-      <ion-button fill="outline" slot="end">View</ion-button>
     </ion-item>
 
     <ion-card-content>
@@ -25,6 +23,4 @@
       within an ion-card-content element.
     </ion-card-content>
   </ion-card>
-
-  <ion-button (click)="go()"> Open Modal content2</ion-button>
 </ion-content>

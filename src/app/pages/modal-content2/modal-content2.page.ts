@@ -22,8 +22,10 @@ export class ModalContent2Page implements OnInit {
   }
 
   go() {
-    this.event.publish('modal:push', ModalContentPage)
+    this.event.publish('modal:push', {
+      component: ModalContentPage,
+      properties: { title: 'Modal', height: 500 }
+    })
   }
-
 
 }

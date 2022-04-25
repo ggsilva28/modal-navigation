@@ -1,11 +1,41 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="light">
     <ion-title>home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
-  <ion-button (click)="openModal()"> MODAL </ion-button>
-  <ion-button (click)="goPage()"> PAGE CONTENT </ion-button>
+  <ion-card mode="ios">
+    <ion-card-header>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content>
+
+    <ion-item lines="none">
+      <ion-button (click)="openModal()"> MODAL </ion-button>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card mode="ios">
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      This is content, without any paragraph or header tags,
+      within an ion-card-content element.
+    </ion-card-content>
+    
+    <ion-item lines="none">
+      <ion-button (click)="goPage()"> PAGE CONTENT </ion-button>
+    </ion-item>
+  </ion-card>
+
 </ion-content>

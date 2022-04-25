@@ -30,6 +30,7 @@
 }
 
 ion-modal.auto-height {
+  --width: 1024px;
   --border-radius: 10px;
 
   &.bottom {
@@ -37,9 +38,4 @@ ion-modal.auto-height {
   }
 
   --height: var(--modal-component-height);
-  transition: height 500ms;
-
-  .ion-page {
-    transition: height 500ms;
-  }
 }

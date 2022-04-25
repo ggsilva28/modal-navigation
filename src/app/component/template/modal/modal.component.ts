@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
   public rootPage;
   public properties: modalProperties = {
     title: 'Modal',
-    height: 500
+    height: 600
   };
 
   public canGoBack = false;
@@ -39,28 +39,40 @@ export class ModalComponent implements OnInit {
     private event: EventsService,
     private modalCtr: ModalController,
   ) {
-    
+
     this.event.subscribe('modal:push', (data: modalPushProperties) => {
-      this.pushToNav(data.component)
+      console.log('modal:push')
       this.properties = { ...this.properties, ...data.properties }
-      this.resetHeight()
+      data.properties = this.properties
+      this.pushToNav(data)
+      this.setHeight()
     })
 
-    this.event.subscribe('modal:pop', () => {
+    this.event.subscribe('modal:pop', (data: modalPushProperties) => {
+      console.log('modal:pop')
       this.popFromNav()
-      this.resetHeight()
-    })
-
-    this.event.subscribe('modal:height', (height) => {
-      const root = document.documentElement;
-      root.style.setProperty('--modal-component-height', height + 'px');
+      this.setHeight()
     })
 
     this.event.subscribe('modal:close', () => {
+      console.log('modal:close')
       this.modalCtr.dismiss()
-      this.resetHeight()
     })
 
+    this.event.subscribe('modal:destroy', () => {
+      console.log('modal:destroy')
+      this.pageStack = []
+      this.properties = {
+        title: 'Modal',
+        height: 600
+      };
+
+      this.setHeight()
+      this.event.destroy('modal:push')
+      this.event.destroy('modal:pop')
+      this.event.destroy('modal:close')
+      this.event.destroy('modal:destroy')
+    })
   }
 
   ngOnInit() {
@@ -69,20 +81,26 @@ export class ModalComponent implements OnInit {
     this.myNav.setRoot(this.rootPage);
   }
 
-  private resetHeight() {
-    console.log(this.properties)
+  private setHeight() {
     const root = document.documentElement;
-    root.style.setProperty('--modal-component-height', 500 + 'px');
+    root.style.setProperty('--modal-component-height', this.properties.height + 'px');
   }
 
-  private pushToNav(page) {
-    this.pageStack.push(page)
-    this.myNav.push(page)
+  private pushToNav(data) {
+    this.pageStack.push(data)
+    if (data.component) {
+      this.myNav.push(data.component)
+    }
 
     this.checkCanGoBack()
   }
 
   private popFromNav() {
+    const previousPage = this.pageStack[this.pageStack.length - 2]
+    if (previousPage) {
+      this.properties = previousPage.properties
+    }
+
     this.pageStack.pop()
     this.myNav.pop()
 
@@ -98,7 +116,8 @@ export class ModalComponent implements OnInit {
   }
 
   async checkCanGoBack() {
-    if (this.pageStack.length > 0) {
+    console.log(this.pageStack)
+    if (this.pageStack.length > 1) {
       this.canGoBack = true
     } else {
       this.canGoBack = false

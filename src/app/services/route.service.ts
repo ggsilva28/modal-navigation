@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ModalComponent } from 'src/app/component/template/modal/modal.component';
 
+import { EventsService } from './events.service';
+
 export interface params {
   modal: boolean,
   open?: boolean,
@@ -19,6 +21,7 @@ export class RouteService {
   constructor(
     private router: Router,
     public modalController: ModalController,
+    public event: EventsService
   ) { }
 
   async go(url: any, params: params = { modal: false, open: false }, e: any = null) {
@@ -37,11 +40,16 @@ export class RouteService {
       cssClass: 'auto-height',
       componentProps: {
         rootPage: component,
-        properties: { ...properties }
       }
     });
 
     await modal.present();
+
+    this.event.publish('modal:push', { properties: properties })
+
+    modal.onDidDismiss().then(() => {
+      this.event.publish('modal:destroy')
+    })
   }
 
   isActive(url) {
